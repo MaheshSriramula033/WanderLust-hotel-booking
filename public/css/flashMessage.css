@@ -1,0 +1,15 @@
+.flash {
+  font-size: 0.85rem;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .flash {
+    font-size: 0.9rem !important;
+  }
+}
+@media (min-width: 280px) and (max-width: 370px){
+ .flash {
+    font-size: 0.8rem !important;
+  }
+}

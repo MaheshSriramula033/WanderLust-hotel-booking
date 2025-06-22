@@ -1,0 +1,45 @@
+#add-btn{
+  background-color:#FF385C !important;
+  color: black !important;
+  border: none !important;
+}
+.form-wrapper {
+  margin-bottom: 100px; /* or any value you want */
+}
+
+@media (max-width: 450px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  textarea.form-control,
+  input.form-control,
+  select.form-select {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  #add-btn {
+    font-size: 0.95rem;
+    padding: 0.55rem;
+  }
+}
+@media (min-width: 280px) and (max-width: 370px){
+  .container {
+    padding-left: 0.9rem;
+    padding-right: 0.9rem;
+  }
+
+  textarea.form-control,
+  input.form-control,
+  select.form-select {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.65rem;
+  }
+
+  #add-btn {
+    font-size: 0.9rem;
+    padding: 0.45rem;
+  }
+}

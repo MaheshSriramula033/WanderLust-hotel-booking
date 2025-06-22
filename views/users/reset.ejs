@@ -1,0 +1,77 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container mt-5">
+  <%- include('../includes/error') %>
+  <%- include('../includes/success') %>
+</div>
+
+<div class="container d-flex justify-content-center align-items-center mt-5">
+  <div class="card reset-card shadow-sm p-4 col-md-6 col-lg-5">
+    <h3 class="text-center mb-4" style="color: #FF385C;">
+      <i class="fa-solid fa-lock me-2"></i>Reset Your Password
+    </h3>
+
+    <form action="/reset/<%= token %>" method="POST">
+      <div class="mb-3">
+        <label for="password" class="form-label">New Password</label>
+        <input 
+          type="password" 
+          name="password" 
+          id="password" 
+          class="form-control" 
+          placeholder="Enter new password"
+          required
+        >
+      </div>
+
+      <div class="mb-3">
+        <label for="confirm" class="form-label">Confirm Password</label>
+        <input 
+          type="password" 
+          name="confirm" 
+          id="confirm" 
+          class="form-control" 
+          placeholder="Re-enter new password"
+          required
+        >
+      </div>
+
+      <div class="d-grid mt-4">
+        <button class="btn btn-wander btn-lg rounded-pill shadow-sm" type="submit">
+          <i class="fa-solid fa-key me-2"></i>Reset Password
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+  .btn-wander {
+    background-color: #FF385C;
+    border-color: #FF385C;
+    color: #fff;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .btn-wander:hover {
+    background-color: #e03652;
+    border-color: #e03652;
+    color: #fff;
+  }
+
+  input:focus {
+    box-shadow: 0 0 5px rgba(255, 56, 92, 0.4);
+    border-color: #FF385C;
+  }
+
+  .reset-card {
+    border-radius: 12px;
+    transition: box-shadow 0.3s ease;
+    transform: none !important;
+  }
+
+  .reset-card:hover {
+    box-shadow: 0 0 10px rgba(255, 56, 92, 0.15);
+    transform: none !important;
+  }
+</style>

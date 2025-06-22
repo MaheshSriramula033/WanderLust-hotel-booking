@@ -1,0 +1,8 @@
+<link rel="stylesheet" href="/css/flashMessage.css">
+<% if (success && success.length > 0) { %>
+  <div class="alert alert-success alert-dismissible fade show mx-auto col-11 col-sm-8 col-md-6 col-lg-4 flash" role="alert">
+
+    <%= success %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>

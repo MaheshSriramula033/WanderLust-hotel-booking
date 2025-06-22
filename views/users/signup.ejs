@@ -1,0 +1,143 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="signup-page mt-5 mb-5">
+  <div class="container">
+    <%- include('../includes/error') %>
+    <%- include('../includes/success') %>
+  </div>
+
+  <div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="card signup-card shadow-sm p-4 col-md-6 col-lg-5">
+      <h3 class="text-center mb-4" style="color: #FF385C;">
+        <i class="fa-solid fa-user-plus me-2"></i>Create a WanderLust Account
+      </h3>
+
+      <form action="/register" method="POST">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input 
+            type="text" 
+            name="username" 
+            id="username" 
+            class="form-control" 
+            placeholder="Choose a username"
+            required
+          >
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input 
+            type="email" 
+            name="email" 
+            id="email" 
+            class="form-control" 
+            placeholder="you@example.com"
+            required
+          >
+        </div>
+
+        <div class="mb-3 position-relative">
+          <label for="password" class="form-label">Password</label>
+          <input 
+            type="password" 
+            name="password" 
+            id="password" 
+            class="form-control pe-5" 
+            placeholder="Create a strong password"
+            required
+          >
+          <span 
+            id="togglePassword" 
+            class="position-absolute end-0 me-3" 
+            style="top: 70%; transform: translateY(-50%); cursor: pointer; color: #999;">
+            <i class="fa-regular fa-eye"></i>
+          </span>
+        </div>
+
+        <!-- OR Separator -->
+        <div class="text-center my-4">
+          <hr class="mb-3">
+          <span class="position-relative d-inline-block px-3 bg-white" style="top: -14px; color: #999;">OR</span>
+        </div>
+
+        <!-- Google Signup -->
+        <div class="text-center mb-2">
+          <a href="/auth/google/signup" class="btn btn-outline-danger rounded-pill px-4 py-2">
+            <i class="fa-brands fa-google me-2"></i> Sign Up with Google
+          </a>
+        </div>
+
+        <div class="d-grid mt-4">
+          <button class="btn btn-wander btn-lg rounded-pill shadow-sm" type="submit">
+            <i class="fa-solid fa-user-check me-2"></i>Sign Up
+          </button>
+        </div>
+
+        <div class="text-center mt-3">
+          <small>Already have an account? <a href="/login" style="color: #FF385C;">Login</a></small>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  .signup-page {
+    margin-bottom: 100px; /* Avoids footer overlap */
+  }
+
+  .signup-page .btn-wander {
+    background-color: #FF385C;
+    border-color: #FF385C;
+    color: #fff;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    transform: none !important;
+  }
+
+  .signup-page .btn-wander:hover {
+    background-color: #e03652;
+    border-color: #e03652;
+    color: #fff;
+    transform: none !important;
+  }
+
+  .signup-page input:focus {
+    box-shadow: 0 0 5px rgba(255, 56, 92, 0.4);
+    border-color: #FF385C;
+  }
+
+  .signup-page .signup-card {
+    border-radius: 12px;
+    transition: box-shadow 0.3s ease;
+    transform: none !important;
+    will-change: auto;
+  }
+
+  .signup-page .signup-card:hover {
+    box-shadow: 0 0 10px rgba(255, 56, 92, 0.15);
+    transform: none !important;
+  }
+
+  .signup-page .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+    border-color: #dc3545;
+  }
+</style>
+
+<script>
+  const passwordInput = document.getElementById("password");
+  const togglePassword = document.getElementById("togglePassword");
+  const icon = togglePassword.querySelector("i");
+
+  togglePassword.addEventListener("click", () => {
+    const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+    passwordInput.setAttribute("type", type);
+    icon.classList.toggle("fa-eye");
+    icon.classList.toggle("fa-eye-slash");
+  });
+</script>
+
+
+

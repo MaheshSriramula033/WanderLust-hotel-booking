@@ -1,0 +1,130 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="login-page mt-5 mb-5">
+  <div class="container">
+    <%- include('../includes/error') %>
+    <%- include('../includes/success') %>
+  </div>
+
+  <div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="card login-card shadow-sm p-4 col-md-6 col-lg-5">
+      <h3 class="text-center mb-4" style="color: #FF385C;">
+        <i class="fa-solid fa-user-circle me-2"></i>Login to WanderLust
+      </h3>
+
+      <form action="/login" method="POST">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input 
+            type="text" 
+            name="username" 
+            id="username" 
+            class="form-control" 
+            placeholder="Enter your username"
+            required
+          >
+        </div>
+
+        <div class="mb-1 position-relative">
+          <label for="password" class="form-label">Password</label>
+          <input 
+            type="password" 
+            name="password" 
+            id="password" 
+            class="form-control pe-5" 
+            placeholder="Enter your password"
+            required
+          >
+          <span 
+            id="togglePassword" 
+            class="position-absolute end-0 me-3" 
+            style="top: 70%; transform: translateY(-50%); cursor: pointer; color: #999;">
+            <i class="fa-regular fa-eye"></i>
+          </span>
+        </div>
+
+        <div class="text-end mb-3">
+          <a href="/forgot" class="small text-decoration-none" style="color: #FF385C;">Forgot Password?</a>
+        </div>
+
+        <div class="d-grid mt-2">
+          <button class="btn btn-wander btn-lg rounded-pill shadow-sm" type="submit">
+            <i class="fa-solid fa-right-to-bracket me-2"></i>Login
+          </button>
+        </div>
+
+        <div class="text-center my-3">
+          <hr class="mb-3">
+          <span class="position-relative d-inline-block px-3 bg-white" style="top: -12px; color: #999;">OR</span>
+        </div>
+
+        <div class="text-center mb-2" style="margin-top: -10px;">
+          <a href="/auth/google/login" class="btn btn-outline-danger rounded-pill px-4 py-2">
+            <i class="fa-brands fa-google me-2"></i> Login with Google
+          </a>
+        </div>
+
+        <div class="text-center mt-3">
+          <small>Don't have an account? <a href="/register" style="color: #FF385C;">Sign Up</a></small>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  .login-page {
+    margin-bottom: 100px; /* space from footer */
+  }
+
+  .login-page .btn-wander {
+    background-color: #FF385C;
+    border-color: #FF385C;
+    color: #fff;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  }
+
+  .login-page .btn-wander:hover {
+    background-color: #e03652;
+    border-color: #e03652;
+    color: #fff;
+  }
+
+  .login-page .card:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  .login-page input:focus {
+    box-shadow: 0 0 5px rgba(255, 56, 92, 0.4);
+    border-color: #FF385C;
+  }
+
+  .login-page .login-card {
+    border-radius: 10px;
+  }
+
+  .login-page .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+    border-color: #dc3545;
+  }
+</style>
+
+<script>
+  const passwordInput = document.getElementById("password");
+  const togglePassword = document.getElementById("togglePassword");
+  const icon = togglePassword.querySelector("i");
+
+  togglePassword.addEventListener("click", () => {
+    const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+    passwordInput.setAttribute("type", type);
+    icon.classList.toggle("fa-eye");
+    icon.classList.toggle("fa-eye-slash");
+  });
+</script>
+
+
+
+
+

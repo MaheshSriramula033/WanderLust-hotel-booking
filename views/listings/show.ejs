@@ -1,0 +1,210 @@
+<% layout('/layouts/boilerplate') %>
+
+<!-- CSS & JS Links -->
+<link rel="stylesheet" href="/leaflet/leaflet.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+<link rel="stylesheet" href="/css/show.css" />
+
+<div id="show-page" class="container mt-5">
+  <%- include('../includes/error') %>
+  <%- include('../includes/success') %>
+
+  <div class="py-4">
+      <div class="d-flex justify-content-center mb-2">
+  <h3 class="my-2"><%= listing.title %></h3>
+</div>
+
+    <div id="listing-page" class="<%= currentUser ? 'logged-in' : '' %>">
+      <div class="position-relative card">
+        <img src="<%= listing.image.url %>" alt="listing_image" class="card-img-top rounded-top-4" />
+        <% if (currentUser) { %>
+          <div class="position-absolute top-0 end-0 m-2 d-flex align-items-center bg-white px-2 py-1 rounded-pill shadow-sm">
+            <i class="fa-solid fa-heart text-danger fs-5"></i>
+            <span class="ms-1 text-dark fw-bold"><%= listing.likes.length %></span>
+          </div>
+        <% } %>
+
+        <div class="card-body">
+          <p class="card-text"><%= listing.description %></p>
+          <p class="card-text fw-bold">₹<%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %></p>
+          <p class="card-text text-muted"><%= listing.location %>, <%= listing.country %></p>
+        </div>
+      </div>
+
+      <% if (currentUser && listing.owner && listing.owner.equals(currentUser._id)) { %>
+        <div class="d-flex justify-content-center gap-3 mt-4">
+          <a href="/listings/<%= listing.id %>/edit" class="btn btn-danger btn-lg px-5">Edit</a>
+          <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
+            <button type="submit" class="btn btn-dark btn-lg px-5">Delete</button>
+          </form>
+        </div>
+      <% } %>
+    </div>
+
+    <% if (!currentUser) { %>
+      <form action="/bookings/<%= listing._id %>/book" method="GET">
+        <button class="btn btn-danger rounded-pill mt-3 px-4 py-2 offset-5">Book Now</button>
+      </form>
+    <% } else { %>
+      <hr />
+      <!-- Booking form -->
+      <form action="/bookings/<%= listing._id %>/book" method="POST" class="mt-4">
+        <div class="row g-2">
+          <div class="col-md-4">
+            <label for="checkIn" class="form-label">Check-In</label>
+            <input type="date" name="checkIn" id="checkIn" class="form-control" required />
+          </div>
+          <div class="col-md-4">
+            <label for="checkOut" class="form-label">Check-Out</label>
+            <input type="date" name="checkOut" id="checkOut" class="form-control" required />
+          </div>
+          <div class="col-md-4">
+            <label for="guests" class="form-label">Guests</label>
+            <input type="number" name="guests" id="guests" class="form-control" min="1" required />
+          </div>
+        </div>
+
+        <div class="d-flex align-items-center gap-3 mt-4 booking-buttons">
+          <button class="btn btn-danger rounded-pill px-4 py-2">Book Now</button>
+
+          <% if (
+            booking &&
+            booking.user &&
+            booking.user.equals(currentUser._id) &&
+            booking.status !== 'cancelled'
+          ) { %>
+            <button type="button" class="btn btn-danger rounded-pill px-4 py-2" data-bs-toggle="modal" data-bs-target="#cancelModal">
+              Cancel Booking
+            </button>
+          <% } %>
+        </div>
+      </form>
+    <% } %>
+
+    <!-- Cancel Modal -->
+    <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+          <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title" id="cancelModalLabel">Cancel Booking?</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">Are you sure you want to cancel this booking?</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <% if (
+              booking &&
+              currentUser &&
+              booking.user &&
+              booking.user.equals(currentUser._id) &&
+              booking.status !== 'cancelled'
+            ) { %>
+              <form action="/bookings/<%= booking._id %>/cancel?_method=DELETE" method="POST">
+                <button type="submit" class="btn btn-danger">Yes, Cancel Booking</button>
+              </form>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reviews -->
+    <% if (currentUser) { %>
+      <hr />
+      <form action="/listings/<%= listing._id %>/reviews" method="POST" id="reviewForm">
+        <div class="mb-3">
+          <label class="form-label d-block">Rating</label>
+          <div id="star-rating" class="text-warning fs-4">
+            <% for (let i = 1; i <= 5; i++) { %>
+              <i class="fa-regular fa-star" data-value="<%= i %>"></i>
+            <% } %>
+          </div>
+          <input type="hidden" name="review[rating]" id="ratingInput" required />
+          <div class="invalid-feedback d-block" id="ratingError">Please select a rating.</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="comment" class="form-label">Comment</label>
+          <textarea name="review[comment]" id="comment" class="form-control" rows="3" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" <%= !booking ? 'disabled' : '' %>>
+          Submit Review
+        </button>
+      </form>
+    <% } %>
+
+    <hr />
+    <h4 class="mt-4">Reviews</h4>
+    <div class="row row-cols-1 row-cols-md-2 g-4 mt-2">
+      <% if (listing.reviews.length === 0) { %>
+        <div class="col">
+          <p>No reviews yet.</p>
+        </div>
+      <% } else { %>
+        <% listing.reviews.forEach(review => { %>
+          <div class="col">
+            <div class="card border border-dark rounded-4 shadow-sm p-3 review-card">
+              <div class="card-body p-3">
+                <p class="fw-bold mb-1"><%= review.author?.username || "Anonymous" %></p>
+                <p class="mb-2 small"><%= review.comment %></p>
+                <div class="text-warning mb-2">
+                  <% for (let i = 1; i <= 5; i++) { %>
+                    <i class="<%= i <= review.rating ? 'fa-solid' : 'fa-regular' %> fa-star"></i>
+                  <% } %>
+                </div>
+                <% if (currentUser && review.author && review.author.equals(currentUser._id)) { %>
+                  <form method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                    <button class="btn btn-sm btn-outline-danger">Delete</button>
+                  </form>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      <% } %>
+    </div>
+
+    <!-- Map -->
+    <% if (listing.geometry && listing.geometry.coordinates) { %>
+      <div
+        id="map"
+        class="my-4 rounded-4"
+        data-lat="<%= listing.geometry.coordinates[1] %>"
+        data-lng="<%= listing.geometry.coordinates[0] %>"
+        data-title="<%= listing.title.replace(/"/g, '\\"') %>"
+      ></div>
+    <% } else { %>
+      <div class="alert alert-warning mt-3 text-center">Map is unavailable for this listing.</div>
+    <% } %>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="/leaflet/leaflet.js"></script>
+<script src="/js/listingMap.js"></script>
+<script src="/js/reviewForm.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/script.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const likedListings = JSON.parse(localStorage.getItem('likedListings')) ||
+                          JSON.parse(getCookie('likedListings') || '[]');
+    const currentListingId = "<%= listing._id %>";
+    if (likedListings.includes(currentListingId)) {
+      const heartIcon = document.querySelector(".fa-heart");
+      if (heartIcon && heartIcon.classList.contains("fa-regular")) {
+        heartIcon.classList.remove("fa-regular");
+        heartIcon.classList.add("fa-solid");
+      }
+    }
+    function getCookie(name) {
+      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      if (match) return decodeURIComponent(match[2]);
+      return null;
+    }
+  });
+</script>
+

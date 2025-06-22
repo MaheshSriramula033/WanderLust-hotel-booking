@@ -1,0 +1,87 @@
+<% layout('/layouts/boilerplate') %> 
+<div class="container mt-5">
+  <%- include('../includes/error') %>
+  <%- include('../includes/success') %>
+</div>
+<link rel="stylesheet" href="css/index.css">
+<div class="container my-4">
+
+  <!-- Filter Bar + Menu Button on same line -->
+  <div class="filter-menu-container">
+
+   <% if (searchQuery && alllistings.length > 0) { %>
+  <p>Showing results for "<%= searchQuery %>"</p>
+<% } else if (searchQuery && alllistings.length === 0) { %>
+  <p class="text-danger">No results found for "<%= searchQuery %>"</p>
+<% } %>
+
+    <!-- Filters: scrollable -->
+   <% if (!searchQuery) { %>
+  <div class="category-bar" role="navigation" aria-label="Filter listings by category">
+    <% const filters = ["All", "Beach", "Mountain", "City", "Countryside", "Desert", "Lake", "Amazing Views"]; %>
+    <% for (let filterOption of filters) { %>
+      <a href="/listings<%= filterOption === 'All' ? '' : '?category=' + filterOption %>"
+         class="category-link <%= filterOption === category || (filterOption === 'All' && !category) ? 'active' : '' %>">
+        <div class="category-icon" aria-hidden="true">
+          <% if (filterOption === "All") { %><i class="fa-solid fa-house"></i>
+          <% } else if (filterOption === "Beach") { %><i class="fa-solid fa-umbrella-beach"></i>
+          <% } else if (filterOption === "Mountain") { %><i class="fa-solid fa-mountain"></i>
+          <% } else if (filterOption === "City") { %><i class="fa-solid fa-city"></i>
+          <% } else if (filterOption === "Countryside") { %><i class="fa-solid fa-tree"></i>
+          <% } else if (filterOption === "Desert") { %><i class="fa-solid fa-sun"></i>
+          <% } else if (filterOption === "Lake") { %><i class="fa-solid fa-water"></i>
+          <% } else if (filterOption === "Amazing Views") { %><i class="fa-solid fa-binoculars"></i>
+          <% } else { %><i class="fa-solid fa-house"></i><% } %>
+        </div>
+        <%= filterOption %>
+      </a>
+    <% } %>
+  </div>
+<% } %>
+
+  </div>
+
+  <!-- Listing Cards -->
+  <div class="row">
+    <% if (alllistings.length === 0) { %>
+      <div class="col text-center">
+        <p class="text-muted">No listings found for this category.</p>
+      </div>
+    <% } %>
+<% for (let listing of alllistings) { %>
+ <div class="col-md-3 mb-4">
+  <div class="card h-100 shadow-sm border-0 d-flex flex-column" data-listing-id="<%= listing._id %>">
+    <a href="/listings/<%= listing._id %>" class="listing-link">
+      <div class="image-container position-relative">
+        <img src="<%= listing.image.url %>" class="card-img-top img-fluid" alt="listing image">
+        <button class="love-btn btn btn-light position-absolute top-0 end-0 m-2 p-1 rounded-circle shadow">
+  <i class="fa-regular fa-heart text-danger"></i>
+</button>
+
+      </div>
+    </a>
+
+     <div class="card-body flex-grow-1">
+  <a href="/listings/<%= listing._id %>" class="text-decoration-none text-dark">
+    <h5 class="card-title"><%= listing.title %></h5>
+    <p class="card-text">₹<%= Number(listing.price).toLocaleString("en-IN") %> / night</p>
+  </a>
+</div>
+
+<!-- Combined footer: category + Book Now button inline -->
+<div class="card-footer bg-white border-0 d-flex justify-content-between align-items-center px-3 py-2 book-footer">
+  <% if (listing.category) { %>
+    <small class="text-muted category-text mb-0"><%= listing.category %></small>
+  <% } %>
+  <a href="/listings/<%= listing._id %>" class="btn btn-wander btn-sm rounded-pill px-3 py-1">Book Now</a>
+</div>
+
+    </div>
+  </div>
+<% } %>
+  </div>
+</div>
+<script src="/js/likeToggle.js"></script>
+
+
+

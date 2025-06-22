@@ -1,0 +1,350 @@
+   /* Scoped to layout only using body class */
+    body.nav-layout form[role="search"] input[type="search"] {
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    body.nav-layout form[role="search"] input[type="search"]:focus {
+      box-shadow: 0 0 0 0.2rem rgba(255, 56, 92, 0.25) !important;
+      border-color: #FF385C !important;
+      outline: none !important;
+    }
+
+    body.nav-layout form[role="search"] input::placeholder {
+      color: #999;
+    }
+
+    body.nav-layout form[role="search"] input:focus::placeholder {
+      color: #FF385C;
+    }
+
+    body.nav-layout .btn-wander {
+      background-color: #FF385C;
+      border-color: #FF385C;
+      color: #fff;
+      transition: background-color 0.3s ease;
+    }
+
+    body.nav-layout .btn-wander:hover {
+      background-color: #e03652;
+      border-color: #e03652;
+      color: #fff;
+    }
+
+    body.nav-layout .btn-outline-wander {
+      color: #FF385C;
+      border-color: #FF385C;
+      background-color: transparent;
+      transition: all 0.3s ease;
+    }
+
+    body.nav-layout .btn-outline-wander:hover {
+      background-color: #FF385C;
+      color: #fff;
+      border-color: #FF385C;
+    }
+
+    body.nav-layout .menu-toggle-btn {
+      width: 44px;
+      height: 44px;
+      background-color: #fff;
+      border: 2px solid transparent !important;
+      color: #FF385C;
+      transition: box-shadow 0.2s ease, background-color 0.2s ease;
+      cursor: pointer !important;
+    }
+
+    body.nav-layout .menu-toggle-btn:hover {
+      border-color: #FF385C !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    body.nav-layout #sidebarMenu {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 280px;
+      height: 100vh;
+      background-color: #fff;
+      box-shadow: -4px 0 8px rgba(0, 0, 0, 0.1);
+      transition: right 0.3s ease;
+      z-index: 1050;
+      padding: 1rem 1.5rem 1.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    body.nav-layout #sidebarMenu.active {
+      right: 0;
+    }
+
+    body.nav-layout .close-btn {
+      width: 40px !important;
+      height: 40px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      border: 2px solid #FF385C !important;
+      border-radius: 50% !important;
+      background: none !important;
+      cursor: pointer !important;
+      color: #FF385C !important;
+      font-size: 1.5rem !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      align-self: flex-end !important;
+    }
+
+    body.nav-layout .close-btn .material-icons {
+      font-size: 24px !important;
+      color: #FF385C !important;
+    }
+
+    body.nav-layout #sidebarMenu a {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  font-weight: 500;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+body.nav-layout #sidebarMenu a:hover {
+  background-color: #f8f8f8;
+  color: #FF385C;
+}
+
+body.nav-layout #sidebarMenu a i {
+  margin-right: 10px;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+body.nav-layout #sidebarMenu a:hover i {
+  color: #FF385C;
+}
+
+body.nav-layout #sidebarMenu h5 {
+  color: #FF385C;
+  font-weight: bold;
+}
+
+body.nav-layout #sidebarMenu {
+  border-left: 1px solid #ddd;
+}
+@media (max-width: 767px) {
+  .navbar .form-control {
+    width: 100%;
+  }
+
+  .navbar .btn-wander,
+  .navbar .btn-outline-wander {
+    width: 100%;
+  }
+
+  #userSidebarWrapper {
+    z-index: 1050;
+  }
+}
+/* Limit the search input width */
+form[role="search"] .form-control {
+  max-width: 400px; /* Adjust width as needed */
+  flex: 1;
+}
+
+/* Add spacing between Search and Become a host */
+.navbar .btn-wander {
+  margin-right: 12px; /* Gap between search and next button */
+}
+@media (max-width: 450px) {
+  /* Logo and menu adjustments (already shared) */
+  .navbar .navbar-brand {
+    font-size: 1.2rem !important;
+  }
+  .navbar-brand i {
+    font-size: 1.2rem !important;
+    margin-right: 4px;
+  }
+
+  .navbar .menu-toggle-btn .material-icons {
+    font-size: 28px !important;
+  }
+
+  .navbar .small.fw-medium {
+    font-size: 0.75rem !important;
+  }
+
+  /* 🔻 Filter bar icon and text scaling */
+  .category-link {
+    min-width: 60px !important;
+    font-size: 0.7rem !important;
+  }
+
+  .category-icon {
+    font-size: 1rem !important;
+    padding: 8px !important;
+  }
+
+  /* Optional: tighter spacing between icons */
+  .category-bar {
+    gap: 0.75rem !important;
+  }
+}
+@media (min-width: 344px) and (max-width: 370px) {
+  /* Logo */
+  .navbar .navbar-brand {
+    font-size: 1rem !important;
+  }
+
+  .navbar .navbar-brand i {
+    font-size: 1rem !important;
+    margin-right: 3px;
+  }
+  .menu-toggle-btn {
+    padding: 2px !important;
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  /* Menu icon */
+  .navbar .menu-toggle-btn .material-icons {
+    font-size: 15px !important;
+  }
+
+  /* Username */
+  .navbar .small.fw-medium {
+    font-size: 0.8rem !important;
+  }
+
+  /* Filter bar adjustments */
+  .category-link {
+    min-width: 55px !important;
+    font-size: 0.65rem !important;
+  }
+
+  .category-icon {
+    font-size: 0.9rem !important;
+    padding: 6px !important;
+  }
+
+  .category-bar {
+    gap: 0.5rem !important;
+  }
+}
+
+@media (min-width: 280px) and (max-width: 343px) {
+  /* Logo */
+  .navbar .navbar-brand {
+    font-size: 1rem !important;
+  }
+
+  .navbar .navbar-brand i {
+    font-size: 1rem !important;
+    margin-right: 2.5px;
+  }
+  .menu-toggle-btn {
+    padding: 1.5px !important;
+    width: 29px !important;
+    height: 29px !important;
+  }
+
+  /* Menu icon */
+  .navbar .menu-toggle-btn .material-icons {
+    font-size: 13px !important;
+  }
+
+  /* Username */
+  .navbar .small.fw-medium {
+    font-size: 0.7rem !important;
+  }
+
+  /* Filter bar adjustments */
+  .category-link {
+    min-width: 53px !important;
+    font-size: 0.55rem !important;
+  }
+
+  .category-icon {
+    font-size: 1.25rem !important;
+    padding: 5px !important;
+  }
+
+  .category-bar {
+    gap: 0.3rem !important;
+  }
+}
+
+
+@media (max-width: 450px) {
+  #sidebarMenu {
+    width: 220px;
+    padding: 1rem;
+    border-radius: 10px 0 0 10px;
+  }
+
+  #sidebarMenu a,
+  #sidebarMenu button {
+    font-size: 0.85rem;
+  }
+
+  #sidebarMenu h5 {
+    font-size: 1rem;
+  }
+
+  .close-btn {
+    font-size: 1.5rem;
+  }
+  #sidebarMenu form {
+  margin-bottom: 1rem;
+}
+
+#sidebarMenu input[type="search"] {
+  font-size: 0.85rem;
+  padding: 0.5rem 0.75rem;
+}
+
+#sidebarMenu button[type="submit"] {
+  font-size: 0.9rem;
+  padding: 0.5rem;
+}
+
+}
+
+@media (min-width: 280px) and (max-width: 370px) {
+  #sidebarMenu {
+    width: 210px !important;
+    padding: 0.7rem;
+    border-radius: 10px 0 0 10px;
+  }
+
+  #sidebarMenu a,
+  #sidebarMenu button {
+    font-size: 0.7rem;
+  }
+
+  #sidebarMenu h5 {
+    font-size: 0.8rem;
+  }
+
+#sidebarMenu .close-btn {
+  width: 32px !important;
+  font-size: 0.7rem !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+  #sidebarMenu form {
+  margin-bottom: 0.7rem !important;
+}
+
+#sidebarMenu input[type="search"] {
+  font-size: 0.7rem;
+  padding: 0.4rem 0.7rem;
+}
+
+#sidebarMenu button[type="submit"] {
+  font-size: 0.7rem;
+  padding: 0.4rem;
+}
+}
