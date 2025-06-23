@@ -145,6 +145,8 @@ mongoose
   .then(() => console.log("Connected to DB"))
   .catch((err) => console.log(err));
 
+  app.set("trust proxy", 1);
+
 // Session config
 app.use(
   session({
