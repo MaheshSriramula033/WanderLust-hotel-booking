@@ -8,11 +8,11 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-async function sendBookingMail(to, subject, text, attachmentPath) {
-console.log("Sending email to:", to);
+async function sendBookingMail(from, to, subject, text, attachmentPath) {
+  console.log("Sending email to:", to);
 
   await transporter.sendMail({
-    from: process.env.EMAIL,
+    from,
     to,
     subject,
     text,
@@ -24,5 +24,6 @@ console.log("Sending email to:", to);
     ],
   });
 }
+
 
 module.exports = sendBookingMail;

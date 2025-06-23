@@ -43,13 +43,11 @@
     </div>
 
     <% if (!currentUser) { %>
- <!-- Parent container that fills the screen -->
-<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+     <div class="d-flex justify-content-center mt-3">
   <form action="/bookings/<%= listing._id %>/book" method="GET">
     <button class="btn btn-danger rounded-pill px-4 py-2">Book Now</button>
   </form>
 </div>
-
 
     <% } else { %>
       <hr />

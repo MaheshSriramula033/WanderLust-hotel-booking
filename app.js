@@ -37,6 +37,7 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
+
       scriptSrc: [
         "'self'",
         "'unsafe-inline'",
@@ -44,8 +45,9 @@ app.use(
         "https://cdnjs.cloudflare.com",
         "https://unpkg.com",
         "https://accounts.google.com",
-        "https://apis.google.com"
+        "https://apis.google.com" // ✅ Added for Google OAuth
       ],
+
       scriptSrcElem: [
         "'self'",
         "'unsafe-inline'",
@@ -53,8 +55,9 @@ app.use(
         "https://cdnjs.cloudflare.com",
         "https://unpkg.com",
         "https://accounts.google.com",
-        "https://apis.google.com"
+        "https://apis.google.com" // ✅ Added for Google OAuth
       ],
+
       styleSrc: [
         "'self'",
         "'unsafe-inline'",
@@ -63,6 +66,7 @@ app.use(
         "https://cdnjs.cloudflare.com",
         "https://unpkg.com"
       ],
+
       styleSrcElem: [
         "'self'",
         "'unsafe-inline'",
@@ -71,12 +75,14 @@ app.use(
         "https://cdnjs.cloudflare.com",
         "https://unpkg.com"
       ],
+
       fontSrc: [
         "'self'",
         "https://fonts.googleapis.com",
         "https://fonts.gstatic.com",
         "https://cdnjs.cloudflare.com"
       ],
+
       imgSrc: [
         "'self'",
         "data:",
@@ -85,24 +91,53 @@ app.use(
         "https://images.unsplash.com",
         "https://plus.unsplash.com",
         "https://cdn.jsdelivr.net",
+        "https://keralatourpackagesguide.com",
+        "https://cornwallcottages4you.co.uk",
+        "https://www.masaimara.com",
+        "https://cf.bstatic.com",
+        "https://www.essence.com",
+        "https://w0.peakpx.com",
+        "https://i.pinimg.com",
+        "https://r2imghtlak.mmtcdn.com",
+        "https://media.vrbo.com",
+        "https://media.glampinghub.com",
+        "https://media-cdn.tripadvisor.com",
+        "https://images.trvl-media.com",
+        "https://photographafrica.com",
+        "https://encrypted-tbn0.gstatic.com",
+        "https://www.historic-uk.com",
+        "https://tinyhousetalk.com",
+        "https://magazine.compareretreats.com",
+        "https://www.compass.com",
+        "https://www.tigersafariindia.com",
+        "https://a0.muscache.com",
+        "https://img.freepik.com",
+        "https://www.russinfo.in",
+        "https://unpkg.com",
+        "https://raw.githubusercontent.com",
         "https://a.tile.openstreetmap.org",
         "https://b.tile.openstreetmap.org",
-        "https://c.tile.openstreetmap.org",
-        "https://accounts.google.com"
+        "https://c.tile.openstreetmap.org"
       ],
+
       connectSrc: [
         "'self'",
         "https://accounts.google.com",
-        "https://oauth2.googleapis.com"
+        "https://oauth2.googleapis.com",
+        "https://apis.google.com" // ✅ Added for Google OAuth
       ],
+
+      objectSrc: ["'none'"],
+
       frameSrc: [
         "'self'",
-        "https://accounts.google.com"
-      ],
-      objectSrc: ["'none'"]
+        "https://accounts.google.com",
+        "https://apis.google.com" // ✅ Added for Google OAuth
+      ]
     }
   })
 );
+
 
 // MongoDB connection
 mongoose

@@ -40,6 +40,8 @@
     "passport-local-mongoose": "^8.0.0",
     "path": "^0.12.7",
     "pdfkit": "^0.17.1"
+  },
+  "devDependencies": {
+    "@types/cookie": "^1.0.0"
   }
 }
-

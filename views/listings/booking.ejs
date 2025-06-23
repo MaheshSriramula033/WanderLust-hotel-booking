@@ -1,4 +1,4 @@
-<% layout('/layouts/boilerplate') %>
+<% layout('/layouts/boilerplate') %> 
 <div id="bookings-page">
   <div class="container mt-5">
     <%- include('../includes/error') %>
@@ -15,7 +15,8 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mb-4">
       <% bookings.forEach(b => { %>
         <div class="col">
-          <div class="card h-100 shadow-sm border-0 d-flex flex-column <%= b.status === 'cancelled' ? 'opacity-50' : '' %>">
+          <div class="card h-100 shadow-sm border-0 d-flex flex-column <%= b.status && b.status.toLowerCase() === 'cancelled' ? 'opacity-50 cancelled-booking' : '' %>">
+
             <div class="image-container position-relative">
               <img src="<%= b.listing.image.url %>" 
                    class="card-img-top img-fluid rounded-top" 
@@ -31,7 +32,8 @@
               <p class="card-text mb-1"><strong>Guests:</strong> <%= b.guests %></p>
               <p class="card-text mb-1"><strong>Check-In:</strong> <%= b.checkIn.toDateString() %></p>
               <p class="card-text mb-1"><strong>Check-Out:</strong> <%= b.checkOut.toDateString() %></p>
-              <% if (b.status === 'cancelled') { %>
+
+              <% if (b.status && b.status.toLowerCase() === 'cancelled') { %>
                 <p class="card-text text-danger fw-bold">❌ Cancelled</p>
               <% } else { %>
                 <p class="card-text">
@@ -42,7 +44,7 @@
               <% } %>
             </div>
 
-            <% if (b.status !== 'cancelled' && new Date(b.checkOut) > new Date()) { %>
+            <% if (b.status && b.status.toLowerCase() !== 'cancelled' && new Date(b.checkOut) > new Date()) { %>
               <div class="card-footer bg-white border-0 text-end px-3 pb-3">
                 <button type="button"
                         class="btn btn-danger btn-sm rounded-pill px-3 py-1"
@@ -80,5 +82,6 @@
     </div>
   </div>
 </div>
+
 
 
