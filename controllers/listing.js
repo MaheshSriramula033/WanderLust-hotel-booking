@@ -67,19 +67,21 @@ module.exports.createListing = async (req, res) => {
 
     // Generate Host Welcome PDF
     const pdfPath = await generateHostWelcomePDF(req.user);
+    console.log("Sending email to:", req.user.email);
 
-    // Send Welcome Email with PDF attachment
-    await sendBookingMail({
-      to: req.user.email,
-      subject: "Welcome to WanderLust Hosting!",
-      text: `Hi ${req.user.displayName || req.user.username},\n\nThank you for becoming a host! Please find your welcome guide attached.`,
-      attachments: [
-        {
-          filename: `host_welcome_${req.user._id}.pdf`,
-          path: pdfPath
-        }
-      ]
-    });
+    // ✅ Safely send Welcome Email with PDF attachment only if email exists
+if (req.user && req.user.email) {
+  await sendBookingMail(
+    `WanderLust <${process.env.EMAIL}>`,
+    req.user.email,
+    "Welcome to WanderLust Hosting!",
+    `Hi ${req.user.displayName || req.user.username},\n\nThank you for becoming a host! Please find your welcome guide attached.`,
+    pdfPath
+  );
+} else {
+  console.error("❌ Cannot send email: req.user.email is undefined");
+}
+
 
     req.flash("success", `Listing created! Welcome email sent ${req.user.email}`);
     res.redirect(`/listings/${newListing._id}`);
