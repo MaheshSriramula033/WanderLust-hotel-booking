@@ -234,6 +234,12 @@ form[role="search"] .form-control {
   }
 }
 
+.no-scroll {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
 @media (min-width: 280px) and (max-width: 343px) {
   /* Logo */
   .navbar .navbar-brand {
@@ -314,7 +320,7 @@ form[role="search"] .form-control {
 
 @media (min-width: 280px) and (max-width: 370px) {
   #sidebarMenu {
-    width: 210px !important;
+    width: 230px !important;
     padding: 0.7rem;
     border-radius: 10px 0 0 10px;
   }

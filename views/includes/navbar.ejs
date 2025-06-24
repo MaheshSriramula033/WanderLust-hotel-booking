@@ -96,26 +96,30 @@
     const closeSidebarBtn = document.getElementById('closeSidebarBtn');
 
     menuToggleBtn?.addEventListener('click', () => {
-      sidebarMenu.classList.add('active');
-      sidebarMenu.removeAttribute('inert');
-      closeSidebarBtn.focus();
-    });
+  sidebarMenu.classList.add('active');
+  sidebarMenu.removeAttribute('inert');
+  document.body.classList.add('no-scroll'); // prevent scroll
+  closeSidebarBtn.focus();
+});
 
-    closeSidebarBtn?.addEventListener('click', () => {
-      sidebarMenu.classList.remove('active');
-      sidebarMenu.setAttribute('inert', '');
-    });
+closeSidebarBtn?.addEventListener('click', () => {
+  sidebarMenu.classList.remove('active');
+  sidebarMenu.setAttribute('inert', '');
+  document.body.classList.remove('no-scroll'); // allow scroll
+});
 
-    document.addEventListener('click', (e) => {
-      if (
-        sidebarMenu.classList.contains('active') &&
-        !sidebarMenu.contains(e.target) &&
-        !menuToggleBtn.contains(e.target)
-      ) {
-        sidebarMenu.classList.remove('active');
-        sidebarMenu.setAttribute('inert', '');
-      }
-    });
+document.addEventListener('click', (e) => {
+  if (
+    sidebarMenu.classList.contains('active') &&
+    !sidebarMenu.contains(e.target) &&
+    !menuToggleBtn.contains(e.target)
+  ) {
+    sidebarMenu.classList.remove('active');
+    sidebarMenu.setAttribute('inert', '');
+    document.body.classList.remove('no-scroll'); // allow scroll
+  }
+});
+
   </script>
 </body>
 </html>
