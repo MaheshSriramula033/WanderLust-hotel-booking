@@ -199,7 +199,7 @@ function generateHostWelcomePDF(user) {
       doc.fillColor(brandColor)
         .fontSize(24)
         .font("Helvetica-Bold")
-        .text("🎉 Welcome to WanderLust Hosting!", { align: "center" })
+        .text(" Welcome to WanderLust Hosting!", { align: "center" })
         .moveDown(1);
 
       // User Info
